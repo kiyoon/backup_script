@@ -1,0 +1,3 @@
+# exclude these files when rsync
+/home/*/.cache
+/home/sparkware/UNIST/OOP

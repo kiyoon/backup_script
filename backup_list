@@ -1,0 +1,13 @@
+# list of directories to backup, by Kiyoon's back up script.
+# all of them should be absolute path, like /home/user
+# backup these files without "backup_exclude" list
+#
+
+    
+
+		
+	
+
+/var/www #comment
+		
+#/home
