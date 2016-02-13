@@ -9,5 +9,4 @@
 	
 /root/secret
 #/var/www #comment
-		
-#/home
+/home

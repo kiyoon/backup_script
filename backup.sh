@@ -61,13 +61,15 @@ else
 fi
 
 # sync
+echo "$BACKUP_LIST"
 echo "$BACKUP_LIST" | while read dir
 do
-	$SSH_EVAL "echo '' >> \"${BACKUP_LOG}\""
-	$SSH_EVAL "echo \"SYNC_DATE `date +%Y%m%d_%H%M%S`\" >> \"${BACKUP_LOG}\""
+	# ssh command eats STDIN!! To prevent this, connect stdin to /dev/null
+	$SSH_EVAL "echo '' >> \"${BACKUP_LOG}\"" < /dev/null
+	$SSH_EVAL "echo \"SYNC_DATE `date +%Y%m%d_%H%M%S`\" >> \"${BACKUP_LOG}\"" < /dev/null
 	RSYNC="rsync -av --delete --delete-excluded --exclude-from='${EXCLUDE_LIST_FILE}' --relative ${RSYNC_SSH} '${dir}/' '${RSYNC_DEST}'"
 	rsync_out=$(eval "${RSYNC}")
-	$SSH_EVAL "echo \"${rsync_out}\" >> \"${BACKUP_LOG}\""
+	$SSH_EVAL "echo \"${rsync_out}\" >> \"${BACKUP_LOG}\"" < /dev/null
 done
 
 # touch the date
