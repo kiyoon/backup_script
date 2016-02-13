@@ -11,3 +11,11 @@ BACKUP_LIST_FILE="/home/sparkware/backup_script/backup_list"
 EXCLUDE_LIST_FILE="/home/sparkware/backup_script/backup_exclude"
 BACKUP_ROOT_DIR="/home/sparkware/backup_script/backup"
 BACKUPDIR_PREFIX="backup_"
+
+# ssh
+# you should register key for ssh with ssh-keygen. Otherwise, password will be required.
+SSH=0		# SSH=1 if you want to use SSH
+SSH_USER="root"
+SSH_HOST="192.168.0.2"
+SSH_PORT=22
+

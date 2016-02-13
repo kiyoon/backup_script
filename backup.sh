@@ -21,7 +21,7 @@ BACKUP_DIR_WNUM="${BACKUP_DIR_WONUM}${BACKUP_NUM_START}"
 
 if [ -d "${BACKUP_DIR_WONUM}${BACKUP_NUM_END}" ]
 then
-	rm -rf "${BACKUP_DIR_WONUM}${BACKUP_NUM_END}"     
+	\rm -rf "${BACKUP_DIR_WONUM}${BACKUP_NUM_END}"     
 fi
 
 # move number by one
@@ -29,22 +29,27 @@ for i in `eval echo "{$((BACKUP_NUM_END-1))..$((BACKUP_NUM_START+1))}"`
 do
 	if [ -d "${BACKUP_DIR_WONUM}$i" ]
 	then
-		mv "${BACKUP_DIR_WONUM}$i" "${BACKUP_DIR_WONUM}$((i+1))"
+		\mv "${BACKUP_DIR_WONUM}$i" "${BACKUP_DIR_WONUM}$((i+1))"
 	fi
 done
 
 # hard link copy the newest backup
 if [ -d ${BACKUP_DIR_WNUM} ]
 then 
-	cp -al "${BACKUP_DIR_WNUM}" "${BACKUP_DIR_WONUM}$((BACKUP_NUM_START+1))"
+	\cp -al "${BACKUP_DIR_WNUM}" "${BACKUP_DIR_WONUM}$((BACKUP_NUM_START+1))"
 else
-	mkdir -p ${BACKUP_DIR_WNUM}
+	\mkdir -p ${BACKUP_DIR_WNUM}
 fi
 
 # sync
 echo "$BACKUP_LIST" | while read dir
 do
-	rsync -av --delete --delete-excluded --exclude-from=${EXCLUDE_LIST_FILE} --relative "${dir}/" "${BACKUP_DIR_WNUM}"
+	if [ ${SSH} -eq 1 ]
+	then
+		rsync -av --delete --delete-excluded --exclude-from=${EXCLUDE_LIST_FILE} --relative "${dir}/" --rsh="ssh -p${SSH_PORT}" "${SSH_USER}@${SSH_HOST}:${BACKUP_DIR_WNUM}"
+	else
+		rsync -av --delete --delete-excluded --exclude-from=${EXCLUDE_LIST_FILE} --relative "${dir}/" "${BACKUP_DIR_WNUM}"
+	fi
 done
 
 # touch the date
