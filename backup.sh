@@ -61,7 +61,6 @@ else
 fi
 
 # sync
-echo "$BACKUP_LIST"
 echo "$BACKUP_LIST" | while read dir
 do
 	# ssh command eats STDIN!! To prevent this, connect stdin to /dev/null
