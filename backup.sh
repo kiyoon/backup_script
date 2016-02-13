@@ -67,8 +67,7 @@ do
 	$SSH_EVAL "echo '' >> \"${BACKUP_LOG}\"" < /dev/null
 	$SSH_EVAL "echo \"SYNC_DATE `date +%Y%m%d_%H%M%S`\" >> \"${BACKUP_LOG}\"" < /dev/null
 	RSYNC="rsync -av --delete --delete-excluded --exclude-from='${EXCLUDE_LIST_FILE}' --relative ${RSYNC_SSH} '${dir}/' '${RSYNC_DEST}'"
-	rsync_out=$(eval "${RSYNC}")
-	$SSH_EVAL "echo \"${rsync_out}\" >> \"${BACKUP_LOG}\"" < /dev/null
+	eval "${RSYNC}" | $SSH_EVAL "cat >> '${BACKUP_LOG}'"
 done
 
 # touch the date
