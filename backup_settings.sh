@@ -9,7 +9,6 @@ MAX_BACKUP=7
 # backup list 
 BACKUP_LIST_FILE="/root/secret/script/backup_script/backup_list"
 EXCLUDE_LIST_FILE="/root/secret/script/backup_script/backup_exclude"
-#BACKUP_ROOT_DIR="/share/HDB_DATA/fcbackup"
 BACKUP_ROOT_DIR="/root/backup"
 BACKUPDIR_PREFIX="backup_"
 

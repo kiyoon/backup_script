@@ -17,16 +17,19 @@ BACKUP_DIR_WONUM="${BACKUP_ROOT_DIR}/${BACKUPDIR_PREFIX}"
 BACKUP_DIR_WNUM="${BACKUP_DIR_WONUM}${BACKUP_NUM_START}"
 BACKUP_LOG_EXT=".log"
 BACKUP_LOG="${BACKUP_DIR_WNUM}${BACKUP_LOG_EXT}"
-echo "${BACKUP_LOG}"
 
 SSH_ADDRESS="${SSH_USER}@${SSH_HOST}"
 if [ ${SSH_ENABLED} -eq 1 ]
 then
 	SSH="ssh -p ${SSH_PORT} ${SSH_ADDRESS}"
-	SSH_RSYNC="--rsh=\"ssh -p${SSH_PORT}\" \"${SSH_ADDRESS}:${BACKUP_DIR_WNUM}\""
+	SSH_EVAL="${SSH}"
+	RSYNC_SSH="--rsh='ssh -p${SSH_PORT}'"
+	RSYNC_DEST="${SSH_ADDRESS}:${BACKUP_DIR_WNUM}"
 else
 	SSH=""
-	SSH_RSYNC="${BACKUP_DIR_WNUM}"
+	SSH_EVAL="eval"
+	RSYNC_SSH=""
+	RSYNC_DEST="${BACKUP_DIR_WNUM}"
 fi
 
 # start backup procedure
@@ -60,11 +63,13 @@ fi
 # sync
 echo "$BACKUP_LIST" | while read dir
 do
-	echo "" >> "${BACKUP_LOG}"
-	echo "SYNC_DATE `date +%Y%m%d_%H%M%S`" >> "${BACKUP_LOG}"
-	rsync -av --delete --delete-excluded --exclude-from=${EXCLUDE_LIST_FILE} --relative "${dir}/" "${SSH_RSYNC}" &>> "${BACKUP_LOG}" 
+	$SSH_EVAL "echo '' >> \"${BACKUP_LOG}\""
+	$SSH_EVAL "echo \"SYNC_DATE `date +%Y%m%d_%H%M%S`\" >> \"${BACKUP_LOG}\""
+	RSYNC="rsync -av --delete --delete-excluded --exclude-from='${EXCLUDE_LIST_FILE}' --relative ${RSYNC_SSH} '${dir}/' '${RSYNC_DEST}'"
+	rsync_out=$(eval "${RSYNC}")
+	$SSH_EVAL "echo \"${rsync_out}\" >> \"${BACKUP_LOG}\""
 done
 
 # touch the date
-$SSH touch "${BACKUP_DIR_WNUM}"
+$SSH \touch "${BACKUP_DIR_WNUM}"
 
