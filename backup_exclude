@@ -1,5 +1,6 @@
 # exclude these files when rsync
 /home/*/.cache
-/home/sparkware/UNIST/OOP
 /home/data/plex
 /home/sparkware~
+/home/lost+found
+/home/CDS

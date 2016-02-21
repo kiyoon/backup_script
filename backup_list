@@ -3,10 +3,22 @@
 # backup these files without "backup_exclude" list
 #
 
-    
-
-		
-	
+# secret settings or scripts
 /root/secret
+
+# dumped files (mysqldump, etc)
+/root/backup
+
+# plex
+/var/lib/plexmediaserver
+
+# gitlab dump
+/var/opt/gitlab/backups
+
 #/var/www #comment
+
+# home directory
 /home
+
+# settings
+/etc
