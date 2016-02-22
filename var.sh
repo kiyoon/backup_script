@@ -30,4 +30,4 @@ then
 		RSYNC_SSH=""
 		RSYNC_DEST="${BACKUP_DIR_WNUM}"
 	fi
-elif
+fi
