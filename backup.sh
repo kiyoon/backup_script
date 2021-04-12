@@ -43,14 +43,15 @@ fi
 
 # sync
 echo "sync"
-echo "$BACKUP_LIST" | while read dir
+while read dir
 do
+	echo "Directory: $dir"
 	# ssh command eats STDIN!! To prevent this, connect stdin to /dev/null
 	$SSH_EVAL "echo '' >> \"${BACKUP_LOG}\"" < /dev/null
 	$SSH_EVAL "echo \"SYNC_DATE `date +%Y%m%d_%H%M%S`\" >> \"${BACKUP_LOG}\"" < /dev/null
 	RSYNC="rsync -av --delete --delete-excluded --exclude-from='${EXCLUDE_LIST_FILE}' --relative ${RSYNC_SSH} '${dir}/' '${RSYNC_DEST}'"
 	eval "${RSYNC}" | $SSH_EVAL "cat >> '${BACKUP_LOG}'"
-done
+done <<< "$BACKUP_LIST"
 
 # touch the date
 echo "touch the date"
