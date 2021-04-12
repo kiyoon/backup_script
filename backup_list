@@ -10,15 +10,21 @@
 /root/backup
 
 # plex
-/var/lib/plexmediaserver
+# it is too slow to backup. So I'm discarding..
+#/var/lib/plexmediaserver
+
 
 # gitlab dump
-/var/opt/gitlab/backups
+#/var/opt/gitlab/backups
 
-#/var/www #comment
+# Web
+/var/www
 
 # home directory
 /home
 
 # settings
 /etc
+
+# crontab
+/var/spool/cron/crontabs

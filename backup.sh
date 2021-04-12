@@ -12,6 +12,7 @@ source "`dirname $0`/var.sh"
 
 # start backup procedure
 # remove the oldest backup
+echo "remove the oldest backup"
 
 if ($SSH [ -d "${BACKUP_DIR_WONUM}${BACKUP_NUM_END}" ])
 then
@@ -20,6 +21,7 @@ then
 fi
 
 # move number by one
+echo "move number by one"
 for i in `eval echo "{$((BACKUP_NUM_END-1))..$((BACKUP_NUM_START+1))}"`
 do
 	if ($SSH [ -d "${BACKUP_DIR_WONUM}$i" ])
@@ -30,6 +32,7 @@ do
 done
 
 # hard link copy the newest backup
+echo "hard link copy the newest backup"
 if ($SSH [ -d "${BACKUP_DIR_WNUM}" ])
 then 
 	$SSH \cp -al "${BACKUP_DIR_WNUM}" "${BACKUP_DIR_WONUM}$((BACKUP_NUM_START+1))"
@@ -39,6 +42,7 @@ else
 fi
 
 # sync
+echo "sync"
 echo "$BACKUP_LIST" | while read dir
 do
 	# ssh command eats STDIN!! To prevent this, connect stdin to /dev/null
@@ -49,5 +53,6 @@ do
 done
 
 # touch the date
+echo "touch the date"
 $SSH \touch "${BACKUP_DIR_WNUM}"
 
