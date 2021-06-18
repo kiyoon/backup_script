@@ -1,7 +1,12 @@
-# list of directories to backup, by Kiyoon's back up script.
-# all of them should be absolute path, like /home/user
-# backup these files without "backup_exclude" list
+# List of directories to backup, by Kiyoon's back up script.
+# All of them should be absolute path, like /home/user
+# Backup these directories but exclude from "backup_exclude" list
 #
+
+# Tip: Consider adding dot(.) in the path to indicate from which the relative structure should begin.
+# e.g. /var/spool/cron/crontabs    -> Make the entire directory in the destination backup folder,             like /path/to/backup/folder/backup_0/var/spool/cron/crontabs/[FILES]
+#      /var/spool/cron/./crontabs  -> Consider root directory as "crontabs" in the destination folder,        like /path/to/backup/folder/backup_0/crontabs/[FILES]
+#      /var/spool/cron/crontabs/./ -> The files in the directory will be copied directly to the destination folder, like /path/to/backup/folder/backup_0/[FILES]
 
 # secret settings or scripts
 /root/secret
