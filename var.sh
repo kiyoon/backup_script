@@ -7,7 +7,7 @@ then
 	KYBACKUP_VAR="1"	# never do this again
 
 	# import settings
-	source "`dirname $0`/backup_settings.sh"
+	source "$SCRIPT_DIR/backup_settings.sh"
 
 	# variables depending on settings
 	BACKUP_NUM_END=$((BACKUPNUM_START + MAX_BACKUP - 1))

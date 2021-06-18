@@ -1,14 +1,15 @@
 #!/bin/bash
 
 # backup.sh : backup automatically
-# Author : Kiyoon Kim, yoonkr33@gmail.com, sparkware.co.kr
+# Author : Kiyoon Kim, yoonkr33@gmail.com, https://kiyoon.kim
 # first version in 2015.10.29
 
 # make sure we're running as root
 if (( `id -u` != 0 )); then { echo "Sorry, must be root.  Exiting..."; exit 1; } fi
 
+SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
 # import settings and make variables
-source "`dirname $0`/var.sh"
+source "$SCRIPT_DIR/var.sh"
 
 # start backup procedure
 # remove the oldest backup

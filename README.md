@@ -1,5 +1,7 @@
 # backup_script
 
+**Local & remote (SSH) incremental backup for your servers!**
+
 ## Original Author : Kiyoon Kim (yoonkr33@gmail.com)
 
 Backup files(directories) listed at `backup_list` file, excluding files listed at `backup_exclude` file.
