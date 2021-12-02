@@ -1,0 +1,8 @@
+[Telegram]
+token =
+; comma-separated chat_ids
+chat_ids =
+
+[Slack]
+; comma-separated URL tokens
+tokens = https://hooks.slack.com/services/...

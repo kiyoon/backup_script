@@ -11,7 +11,7 @@ Configurations are at `backup_settings.sh`. After setting the configuration file
 
 Directory structures are preserved, after the root backup directory. When all files are backed up, it will touch the root backup directory so that it will store the backup date.
 
-## Crontab settings
+## Crontab Settings
 You can run the backup script periodically using crontab. For example,  
 `10 3 */3 * * /path/to/backup.sh`  
 will run backup.sh every 3 days at 3:10 AM.
@@ -30,3 +30,8 @@ Or, in `/etc/fstab`,
 ```
 /root/backup /disk/backup none bind,ro 0 0
 ```
+
+## Telegram and Slack Bot Reporting
+You can report the success or error log to Telegram and/or Slack!  
+Make `key.ini` similarily to `key.ini.template`. Enable reporting on `backup_settings.sh`.  
+That's it!
