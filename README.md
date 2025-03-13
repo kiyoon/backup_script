@@ -2,12 +2,12 @@
 
 **Local & remote (SSH) incremental backup for your servers!**
 
-## Original Author : Kiyoon Kim (yoonkr33@gmail.com)
+## Original Author: Kiyoon Kim
 
-Backup files(directories) listed at `backup_list` file, excluding files listed at `backup_exclude` file.
+Backup files(directories) listed in `backup_list` file, excluding files listed in `backup_exclude` file.
 `backup_exclude` has higher priority than `backup_list` file.
 
-Configurations are at `backup_settings.sh`. After setting the configuration file, executing `backup.sh` will backup your system.
+Configurations are at `backup_settings.sh`. After setting the configuration file, executing `backup.sh` will back up your system.
 
 Directory structures are preserved, after the root backup directory. When all files are backed up, it will touch the root backup directory so that it will store the backup date.
 
